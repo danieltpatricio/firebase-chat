@@ -1,7 +1,7 @@
 import 'firebase/firestore';
 
 import firebase from 'firebase/app';
-import { Firestore } from 'interfaces/firestore';
+import { Firestore } from 'models/interfaces/firestore';
 
 export class CloudFirestoreService {
   private db: Firestore;

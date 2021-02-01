@@ -1,16 +1,18 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import { IUser } from 'models/interfaces/user';
+import { appFirebase } from 'settings';
 
 export class FirebaseAuthService {
   constructor() {
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
+    firebase.auth(appFirebase).setPersistence(firebase.auth.Auth.Persistence.SESSION);
   }
 
   public async loginWithEmail(email: string, password: string): Promise<any> {
     return firebase
       .auth()
       .setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      .then(() => firebase.auth().signInWithEmailAndPassword(email, password));
+      .then(async () => (await firebase.auth().signInWithEmailAndPassword(email, password))?.user?.toJSON() );
   }
 
   public async logout(): Promise<void> {
@@ -32,10 +34,10 @@ export class FirebaseAuthService {
     }
   }
 
-  public onAuthChange(): any {
+  public onAuthChange(cb: (user: IUser)=> void): firebase.Unsubscribe {
     return firebase.auth().onAuthStateChanged(async user => {
       if (user) {
-        return user.toJSON();
+        return cb(user.toJSON() as IUser);
       } else {
         return undefined;
       }

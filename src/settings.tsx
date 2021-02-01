@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 
-const FIREBASE_CONFIG = {
+export const FIREBASE_CONFIG = {
   apiKey: "AIzaSyASdTN73P46ggg0KX314Z9o4uP0Gvn9vLo",
   authDomain: "fir-chat-1e2b2.firebaseapp.com",
   projectId: "fir-chat-1e2b2",
@@ -11,5 +11,4 @@ const FIREBASE_CONFIG = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(FIREBASE_CONFIG);
-firebase.analytics();
+export const appFirebase = firebase.initializeApp(FIREBASE_CONFIG);

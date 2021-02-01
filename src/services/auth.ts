@@ -20,6 +20,15 @@ export class FirebaseAuthService {
       alert(errorMessageFormatter({ message: error.code }))
     }
   }
+ 
+  public async signup(email: string, displayName: string, password: string): Promise<IUser | undefined> {
+    const user = await firebase.auth().createUserWithEmailAndPassword(email, password)
+    await user.user?.updateProfile({
+      displayName
+    })
+    const data = ((user?.user?.toJSON() || undefined) as IUser | undefined);
+    return data;
+  }
 
   public async logout(): Promise<void> {
     return firebase.auth().signOut();
@@ -44,12 +53,12 @@ export class FirebaseAuthService {
     }
   }
 
-  public onAuthChange(cb: (user: IUser)=> void): firebase.Unsubscribe {
+  public onAuthChange(cb: (user: IUser | undefined)=> void): firebase.Unsubscribe {
     return firebase.auth().onAuthStateChanged(async user => {
       if (user) {
         return cb(user.toJSON() as IUser);
       } else {
-        return undefined;
+        return cb(undefined);
       }
     });
   }

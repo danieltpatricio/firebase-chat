@@ -1,3 +1,29 @@
 .title {
   flex-grow: 1;
 }
+
+.container {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+  min-height: 500px;
+}
+
+.chat-list {
+  width: '100%';
+  max-width: '36ch';
+  background-color: '#f1f1f1f1';
+}
+
+.inline {
+  display: 'inline';
+}
+
+.form-chat {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  width: 100%;
+  align-items: flex-end;
+  padding: 16px;
+  gap: 16px;
+}

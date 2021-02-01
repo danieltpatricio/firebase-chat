@@ -4,6 +4,7 @@ import { useHistory, Redirect, Route, Switch } from 'react-router-dom';
 import Login from './Login';
 import Chat from './Chat';
 import { AuthContext } from 'stores/auth';
+import Signup from './Signup';
 
 /* import AdminPage from './Admin';
 import NewPasswordPage from './Public/NewPassword'; */
@@ -22,8 +23,8 @@ const Pages = memo(() => {
 
   return (
     <Switch>
-      {/* <Route path='/nova-senha' exact component={NewPasswordPage} /> */}
       <Route path='/login' exact component={Login} />
+      <Route path='/signup' exact component={Signup} />
       <GuardRoutes path='/' component={Chat} />
       <Route path='/reload' exact render={renderEmpty} />
       <Route render={renderRedirect} />

@@ -21,7 +21,7 @@ export class CloudFirestoreService {
   }
 
   public listenChatMessage(cb: (data: QuerySnapshot<IChatMessage>) => void): void{
-    this.db.collection('chat-messages').withConverter<IChatMessage>(chatMessageConverter).onSnapshot((doc) => {
+    this.db.collection('chat-messages').withConverter<IChatMessage>(chatMessageConverter).orderBy("createdAt", "asc").onSnapshot((doc) => {
       cb(doc)
     });
   }

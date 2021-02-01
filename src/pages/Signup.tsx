@@ -24,7 +24,7 @@ const validationSchema = yup.object().shape({
 });
 
 
-const Login = memo(() => {
+const Signup = memo(() => {
   const { dispatch } = useContext(AuthContext);
   const history = useHistory()
 
@@ -49,7 +49,7 @@ const Login = memo(() => {
               <TextField name='password' type='password' />
             </Grid>
             <Grid item>
-              <Button type='submit'>Login</Button>
+              <Button type='submit'>Cadastrar</Button>
             </Grid>
           </Grid>
         </Form>
@@ -58,4 +58,4 @@ const Login = memo(() => {
   );
 });
 
-export default Login;
+export default Signup;

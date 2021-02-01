@@ -4,6 +4,7 @@ import { Types } from 'models/enums/auth';
 import Pages from 'pages';
 import firebaseAuthService from 'services/auth';
 import { BrowserRouter } from 'react-router-dom';
+import './yupLocale';
 
 const App = memo(() => {
   const [store, dispatch] = useReducer(authReducer, initialState);

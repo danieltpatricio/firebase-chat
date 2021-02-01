@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import { errorMessageFormatter } from 'formatters/errorMessage';
 import { IUser } from 'models/interfaces/user';
 import { appFirebase } from 'settings';
 
@@ -8,11 +9,16 @@ export class FirebaseAuthService {
     firebase.auth(appFirebase).setPersistence(firebase.auth.Auth.Persistence.SESSION);
   }
 
-  public async loginWithEmail(email: string, password: string): Promise<any> {
-    return firebase
+  public async loginWithEmail(email: string, password: string): Promise<IUser | undefined> {
+    await firebase
       .auth()
       .setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      .then(async () => (await firebase.auth().signInWithEmailAndPassword(email, password))?.user?.toJSON() );
+    try {
+      const user = (await firebase.auth().signInWithEmailAndPassword(email, password))?.user?.toJSON()
+      return user as IUser;
+    } catch (error) {
+      alert(errorMessageFormatter({ message: error.code }))
+    }
   }
 
   public async logout(): Promise<void> {
@@ -21,6 +27,10 @@ export class FirebaseAuthService {
 
   public async getCurrentToken(): Promise<string | undefined> {
     return firebase.auth().currentUser?.getIdToken();
+  }
+  
+  public async getCurrentUser(): Promise<IUser | null> {
+    return firebase.auth().currentUser as IUser | null;
   }
 
   public decode<T>(token: string): T | null {

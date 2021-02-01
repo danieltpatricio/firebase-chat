@@ -7,6 +7,7 @@ import TextField from 'components/Fields/Text';
 import { AuthContext } from 'stores/auth';
 import { Types } from 'models/enums/auth';
 import {useHistory} from 'react-router-dom';
+import { Typography } from '@material-ui/core';
 
 interface Values {
   email: string;
@@ -26,8 +27,9 @@ const Login = memo(() => {
   return (
     <Formik initialValues={{} as Values} onSubmit={onSubmit}>
       <Form className='login-form'>
-        <TextField name='email' formik/>
-        <TextField name='password' type='password' formik/>
+        <Typography variant='h4'>Firebase Chat</Typography>
+        <TextField name='email' />
+        <TextField name='password' type='password' />
         <button type='submit'>Login</button>
       </Form>
     </Formik>

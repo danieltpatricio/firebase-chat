@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import * as yup from 'yup';
+import { Link } from '@material-ui/core';
 
 interface Values {
   email: string;
@@ -34,6 +35,14 @@ const Login = memo(() => {
     history.push('/');
   }
 
+  const handleLoginWithGoogle =  async () => {
+    await firebaseAuthService.loginWithGoogle()
+  }
+
+  const handleLoginWithGitHub =  async () => {
+    await firebaseAuthService.loginWithGitHub()
+  }
+
   return (
     <Container>
       <Formik initialValues={{} as Values} onSubmit={onSubmit} validationSchema={validationSchema}>
@@ -43,13 +52,22 @@ const Login = memo(() => {
               <Typography variant='h4'>Firebase Chat</Typography>
             </Grid>
             <Grid item>
-              <TextField name='email' />
+              <TextField name='email' label='E-mail'/>
             </Grid>
             <Grid item>
-              <TextField name='password' type='password' />
+              <TextField name='password' type='password' label='Senha'/>
             </Grid>
             <Grid item>
-              <Button type='submit'>Login</Button>
+              <Button type='submit' variant='outlined'>Login</Button>
+            </Grid>
+            <Grid item>
+              <Link href='/signup'>Cadastre-se</Link>
+            </Grid>
+            <Grid item>
+              <Button onClick={handleLoginWithGoogle}>Login com Google</Button>
+            </Grid>
+            <Grid item>
+              <Button onClick={handleLoginWithGitHub}>Login com GitHub</Button>
             </Grid>
           </Grid>
         </Form>

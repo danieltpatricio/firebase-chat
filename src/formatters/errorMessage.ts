@@ -9,6 +9,8 @@ export function errorMessageFormatter(err: any): string {
       return 'Sem conexão com a internet';
     case 'auth/user-not-found':
       return 'Login inválido.'
+    case 'auth/email-already-in-use':
+      return 'E-mail duplicado.'
     default:
       return 'Algo deu errado...';
   }
